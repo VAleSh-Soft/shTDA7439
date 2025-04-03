@@ -10,11 +10,6 @@ void shTDA7439::begin(TwoWire *wire)
   _wire->begin();
 }
 
-void shTDA7439::setWire(TwoWire *wire)
-{
-  _wire = wire;
-}
-
 void shTDA7439::setInput(TDA7439_input input)
 {
   writeWire(TDA7439_INPUT_SEL, (uint8_t)input);

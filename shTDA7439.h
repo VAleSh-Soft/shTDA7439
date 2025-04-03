@@ -52,13 +52,6 @@ public:
 	void begin(TwoWire *wire = &Wire);
 
 	/**
-	 * @brief установка I2C-интерфейса для работы с shTDA7439
-	 *
-	 * @param wire
-	 */
-	void setWire(TwoWire *wire);
-
-	/**
 	 * @brief установка входного канала
 	 *
 	 * @param input выбранный канал - INPUT_4, INPUT_3, INPUT_2, INPUT_1
