@@ -83,11 +83,11 @@ public:
 	/**
 	 * @brief установка тембра сразу по всем диапазонам
 	 *
-	 * @param _bass басы; -7..7
-	 * @param _middle средние частоты; -7..7
-	 * @param _trebble высокие частоты; -7..7
+	 * @param bass низкие частоты; -7..7
+	 * @param middle средние частоты; -7..7
+	 * @param trebble высокие частоты; -7..7
 	 */
-	void setTimbre(int8_t _bass, int8_t _middle, int8_t _trebble);
+	void setTimbre(int8_t bass, int8_t middle, int8_t trebble);
 
 	/**
 	 * @brief отключение звука
@@ -100,19 +100,19 @@ public:
 	 *
 	 * @param att_r данные баланса; -79..79 (db)
 	 */
-	void setBalance(int8_t _balance);
+	void setBalance(int8_t balance);
 
 	/**
 	 * @brief установка значения уровня приглушения громкости на выходе
 	 *
-	 * @param _spk_att // 0..79 (db)
+	 * @param spk_att // 0..79 (db)
 	 */
-	void setSpeakerAtt(int8_t _spk_att);
+	void setSpeakerAtt(int8_t spk_att);
 
 private:
 	TwoWire *_wire = nullptr;
-	uint8_t spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
-	int8_t balance = 0;	 // баланс; -79..79 (db)
+	uint8_t _spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
+	int8_t _balance = 0;	 // баланс; -79..79 (db)
 
 	void writeWire(uint8_t reg, uint8_t data);
 	void checkEqData(int8_t &val);

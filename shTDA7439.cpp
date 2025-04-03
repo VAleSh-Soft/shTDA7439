@@ -36,15 +36,15 @@ void shTDA7439::setEqRange(int8_t val, TDA7439_bands range)
   writeWire((uint8_t)range, val);
 }
 
-void shTDA7439::setTimbre(int8_t _bass, int8_t _middle, int8_t _trebble)
+void shTDA7439::setTimbre(int8_t bass, int8_t middle, int8_t trebble)
 {
-  checkEqData(_bass);
-  checkEqData(_middle);
-  checkEqData(_trebble);
+  checkEqData(bass);
+  checkEqData(middle);
+  checkEqData(trebble);
 
-  writeWire(TDA7439_BASS, _bass);
-  writeWire(TDA7439_MIDDLE, _middle);
-  writeWire(TDA7439_TREBBLE, _trebble);
+  writeWire(TDA7439_BASS, bass);
+  writeWire(TDA7439_MIDDLE, middle);
+  writeWire(TDA7439_TREBBLE, trebble);
 }
 
 void shTDA7439::mute()
@@ -52,12 +52,12 @@ void shTDA7439::mute()
   writeWire(TDA7439_VOLUME, TDA7439_MUTE);
 }
 
-void shTDA7439::setBalance(int8_t _balance)
+void shTDA7439::setBalance(int8_t balance)
 {
-  balance = (_balance > 79) ? 79 : ((_balance < -79) ? -79 : _balance);
+  _balance = (balance > 79) ? 79 : ((balance < -79) ? -79 : balance);
 
-  uint8_t right = (balance < 0) ? -1 * balance + spk_att : spk_att;
-  uint8_t left = (balance > 0) ? balance + spk_att : spk_att;
+  uint8_t right = (_balance < 0) ? -1 * _balance + _spk_att : _spk_att;
+  uint8_t left = (_balance > 0) ? _balance + _spk_att : _spk_att;
 
   if (right > 79)
   {
@@ -72,10 +72,10 @@ void shTDA7439::setBalance(int8_t _balance)
   writeWire(TDA7439_LATT, left);
 }
 
-void shTDA7439::setSpeakerAtt(int8_t _spk_att)
+void shTDA7439::setSpeakerAtt(int8_t spk_att)
 {
-  spk_att = (_spk_att > 79) ? 79 : _spk_att;
-  setBalance(balance);
+  _spk_att = (spk_att > 79) ? 79 : spk_att;
+  setBalance(_balance);
 }
 
 void shTDA7439::writeWire(uint8_t reg, uint8_t data)
