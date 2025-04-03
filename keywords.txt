@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map For shTaskManager
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+shTDA7439	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2) 
+#######################################
+
+begin	KEYWORD2
+setWire	KEYWORD2
+setInput	KEYWORD2
+setInputGain	KEYWORD2
+setVolume	KEYWORD2
+setTimbre	KEYWORD2
+mute	KEYWORD2
+spkAtt	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+TDA7439_INPUT_SEL	LITERAL1
+TDA7439_INPUT_GAIN	LITERAL1
+TDA7439_VOLUME	LITERAL1
+TDA7439_BASS	LITERAL1
+TDA7439_MIDDLE	LITERAL1
+TDA7439_TREBBLE	LITERAL1
+TDA7439_RATT	LITERAL1
+TDA7439_LATT	LITERAL1
