@@ -28,9 +28,9 @@ enum TDA7439_input : uint8_t
 // диапазон регулировки тембра
 enum TDA7439_bands : uint8_t
 {
-	BASS = 0x03,	 // низкие частоты
-	MIDDLE = 0x04, // средние частоты
-	TREBBLE = 0x05 // высокие частоты
+	BASS = TDA7439_BASS,			// низкие частоты
+	MIDDLE = TDA7439_MIDDLE,	// средние частоты
+	TREBBLE = TDA7439_TREBBLE // высокие частоты
 };
 
 #define TDA7439_MUTE 0x38
@@ -52,7 +52,7 @@ public:
 	void begin(TwoWire *wire = &Wire);
 
 	/**
-	 * @brief установка объекта Wire для работы с shTDA7439
+	 * @brief установка I2C-интерфейса для работы с shTDA7439
 	 *
 	 * @param wire
 	 */
@@ -75,17 +75,26 @@ public:
 	/**
 	 * @brief установка громкости
 	 *
-	 * @param volume уровень громкости; 0..48
+	 * @param volume уровень громкости; 0..47
 	 */
 	void setVolume(uint8_t volume);
 
 	/**
-	 * @brief установка тембра
+	 * @brief установка полосы эквалайзера
 	 *
 	 * @param val устанавливаемое значение; -7..7
 	 * @param range диапазон - BASS, MIDDLE, TREBBLE
 	 */
-	void setTimbre(int8_t val, TDA7439_bands range);
+	void setEqRange(int8_t val, TDA7439_bands range);
+
+	/**
+	 * @brief установка тембра сразу по всем диапазонам
+	 *
+	 * @param _bass басы; -7..7
+	 * @param _middle средние частоты; -7..7
+	 * @param _trebble высокие частоты; -7..7
+	 */
+	void setTimbre(int8_t _bass, int8_t _middle, int8_t _trebble);
 
 	/**
 	 * @brief отключение звука
@@ -110,9 +119,10 @@ public:
 private:
 	TwoWire *_wire = nullptr;
 	uint8_t spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
-	int8_t balance = 0;  // баланс; -79..79 (db)
+	int8_t balance = 0;	 // баланс; -79..79 (db)
 
 	void writeWire(uint8_t reg, uint8_t data);
+	void checkEqData(int8_t &val);
 };
 
 #endif // TDA7439_H

@@ -31,15 +31,25 @@ void shTDA7439::setInputGain(uint8_t gain)
 
 void shTDA7439::setVolume(uint8_t volume)
 {
-  volume = (volume) ? ((volume <= 48) ? 48 - volume : 0) : TDA7439_MUTE;
+  volume = (volume) ? ((volume <= 47) ? 47 - volume : 0) : TDA7439_MUTE;
   writeWire(TDA7439_VOLUME, volume);
 }
 
-void shTDA7439::setTimbre(int8_t val, TDA7439_bands range)
+void shTDA7439::setEqRange(int8_t val, TDA7439_bands range)
 {
-  val = (val < -7) ? -7 : ((val > 7) ? 7 : val);
-  val = (val > 0) ? 15 - val : val + 7;
+  checkEqData(val);
   writeWire((uint8_t)range, val);
+}
+
+void shTDA7439::setTimbre(int8_t _bass, int8_t _middle, int8_t _trebble)
+{
+  checkEqData(_bass);
+  checkEqData(_middle);
+  checkEqData(_trebble);
+
+  writeWire(TDA7439_BASS, _bass);
+  writeWire(TDA7439_MIDDLE, _middle);
+  writeWire(TDA7439_TREBBLE, _trebble);
 }
 
 void shTDA7439::mute()
@@ -79,4 +89,10 @@ void shTDA7439::writeWire(uint8_t reg, uint8_t data)
   _wire->write(reg);
   _wire->write(data);
   _wire->endTransmission();
+}
+
+void shTDA7439::checkEqData(int8_t &val)
+{
+  val = (val < -7) ? -7 : ((val > 7) ? 7 : val);
+  val = (val > 0) ? 15 - val : val + 7;
 }

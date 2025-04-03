@@ -17,7 +17,7 @@ setWire	KEYWORD2
 setInput	KEYWORD2
 setInputGain	KEYWORD2
 setVolume	KEYWORD2
-setTimbre	KEYWORD2
+setEqRange	KEYWORD2
 mute	KEYWORD2
 setBalance	KEYWORD2
 setSpeakerAtt	KEYWORD2
