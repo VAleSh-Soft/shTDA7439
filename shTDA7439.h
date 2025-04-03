@@ -34,6 +34,7 @@ enum TDA7439_bands : uint8_t
 };
 
 #define TDA7439_MUTE 0x38
+#define TDA7439_SP_MUTE 0x78
 
 #include <Arduino.h>
 class shTDA7439
@@ -56,29 +57,29 @@ public:
 	 *
 	 * @param input выбранный канал - INPUT_4, INPUT_3, INPUT_2, INPUT_1
 	 */
-	void setInput(TDA7439_input input);
+	void setInput(const TDA7439_input input);
 
 	/**
 	 * @brief установка усиления на входе
 	 *
-	 * @param gain уровень усиления; 0..15
+	 * @param gain 0..15
 	 */
 	void setInputGain(uint8_t gain);
 
 	/**
 	 * @brief установка громкости
 	 *
-	 * @param volume уровень громкости; 0..47
+	 * @param volume 0..47
 	 */
 	void setVolume(uint8_t volume);
 
 	/**
 	 * @brief установка полосы эквалайзера
 	 *
-	 * @param val устанавливаемое значение; -7..7
+	 * @param val -7..7
 	 * @param range диапазон - BASS, MIDDLE, TREBBLE
 	 */
-	void setEqRange(int8_t val, TDA7439_bands range);
+	void setEqRange(int8_t val, const TDA7439_bands range);
 
 	/**
 	 * @brief установка тембра сразу по всем диапазонам
@@ -98,23 +99,23 @@ public:
 	/**
 	 * @brief установка баланса
 	 *
-	 * @param att_r данные баланса; -79..79 (db)
+	 * @param att_r -79..79 (db)
 	 */
-	void setBalance(int8_t balance);
+	void setBalance(const int8_t balance);
 
 	/**
 	 * @brief установка значения уровня приглушения громкости на выходе
 	 *
-	 * @param spk_att // 0..79 (db)
+	 * @param spk_att 0..79 (db)
 	 */
-	void setSpeakerAtt(int8_t spk_att);
+	void setSpeakerAtt(const int8_t spk_att);
 
 private:
 	TwoWire *_wire = nullptr;
 	uint8_t _spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
 	int8_t _balance = 0;	 // баланс; -79..79 (db)
 
-	void writeWire(uint8_t reg, uint8_t data);
+	void writeWire(const uint8_t reg, const uint8_t size);
 	void checkEqData(int8_t &val);
 };
 
