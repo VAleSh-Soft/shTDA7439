@@ -33,7 +33,7 @@ enum TDA7439_bands : uint8_t
 	TREBBLE = 0x05 // высокие частоты
 };
 
-#define TDA7439_MUTE 0x38 
+#define TDA7439_MUTE 0x38
 
 #include <Arduino.h>
 class shTDA7439
@@ -96,13 +96,21 @@ public:
 	/**
 	 * @brief установка баланса
 	 *
-	 * @param att_r правый канал; 0..79 (db)
-	 * @param att_l левый канал; 0..79 (db)
+	 * @param att_r данные баланса; -79..79 (db)
 	 */
-	void spkAtt(uint8_t att_r, uint8_t att_l);
+	void setBalance(int8_t _balance);
+
+	/**
+	 * @brief установка значения уровня приглушения громкости на выходе
+	 *
+	 * @param _spk_att // 0..79 (db)
+	 */
+	void setSpeakerAtt(int8_t _spk_att);
 
 private:
-	TwoWire *_wire;
+	TwoWire *_wire = nullptr;
+	uint8_t spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
+	int8_t balance = 0;  // баланс; -79..79 (db)
 
 	void writeWire(uint8_t reg, uint8_t data);
 };

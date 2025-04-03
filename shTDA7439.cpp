@@ -47,21 +47,30 @@ void shTDA7439::mute()
   writeWire(TDA7439_VOLUME, TDA7439_MUTE);
 }
 
-void shTDA7439::spkAtt(uint8_t att_r, uint8_t att_l)
+void shTDA7439::setBalance(int8_t _balance)
 {
-  // Mainly used to override the default attenuation of mute at power up
-  // can be used for balance with some simple code changes here.
-  if (att_l > 79)
+  balance = (_balance > 79) ? 79 : ((_balance < -79) ? -79 : _balance);
+
+  uint8_t right = (balance < 0) ? -1 * balance + spk_att : spk_att;
+  uint8_t left = (balance > 0) ? balance + spk_att : spk_att;
+
+  if (right > 79)
   {
-    att_l = 79;
+    right = 79;
   }
-  if (att_r > 79)
+  if (left > 79)
   {
-    att_r = 79;
+    left = 79;
   }
 
-  writeWire(TDA7439_RATT, att_r);
-  writeWire(TDA7439_LATT, att_l);
+  writeWire(TDA7439_RATT, right);
+  writeWire(TDA7439_LATT, left);
+}
+
+void shTDA7439::setSpeakerAtt(int8_t _spk_att)
+{
+  spk_att = (_spk_att > 79) ? 79 : _spk_att;
+  setBalance(balance);
 }
 
 void shTDA7439::writeWire(uint8_t reg, uint8_t data)

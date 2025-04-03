@@ -19,7 +19,8 @@ setInputGain	KEYWORD2
 setVolume	KEYWORD2
 setTimbre	KEYWORD2
 mute	KEYWORD2
-spkAtt	KEYWORD2
+setBalance	KEYWORD2
+setSpeakerAtt	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
