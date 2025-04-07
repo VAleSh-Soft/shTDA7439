@@ -1,3 +1,16 @@
+/**
+ * @file TDA7439_test.ino
+ * @author Vladimir Shatalov (valesh-soft@yandex.ru)
+ * 
+ * @brief демонстрационый пример возможностей библиотеки
+ * 
+ * @version 1.0
+ * @date 03.04.2025
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include <shTDA7439.h>
 
 shTDA7439 tda;

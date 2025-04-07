@@ -113,7 +113,7 @@ public:
 private:
 	TwoWire *_wire = nullptr;
 	uint8_t _spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
-	int8_t _balance = 0;	 // баланс; -79..79 (db)
+	int8_t _balance = 0;	// баланс; -79..79 (db)
 
 	void writeWire(const uint8_t reg, const uint8_t size);
 	void checkEqData(int8_t &val);

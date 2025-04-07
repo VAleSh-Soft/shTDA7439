@@ -99,7 +99,7 @@ void shTDA7439::writeWire(const uint8_t reg, const uint8_t size)
     _wire->write(wire_data[i]);
   }
   _wire->endTransmission();
-  }
+}
 
 void shTDA7439::checkEqData(int8_t &val)
 {
