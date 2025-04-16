@@ -7,6 +7,8 @@
 #######################################
 
 shTDA7439	KEYWORD1
+TDA7439_input	KEYWORD1
+TDA7439_bands	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2) 
