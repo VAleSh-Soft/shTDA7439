@@ -1,6 +1,18 @@
-#ifndef TDA7439_H
-#define TDA7439_H
+/**
+ * shTDA7439.h - библиотека для работы с аудиопроцессором TDA7439
+ *
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Vladimir Shatalov <valesh-soft@yandex.ru>
+ * SPDX-License-Identifier: MIT
+ *
+ * Библиотека разработана и поддерживается Владимиром Шаталовым (VAleSh-Soft).
+ *
+ * Полный текст лицензии MIT - в файле LICENSE.
+ */
 
+#ifndef SHTDA7439_H
+#define SHTDA7439_H
+
+#include <Arduino.h>
 #include <Wire.h>
 
 #define TDA7439_address 0x44
@@ -28,15 +40,14 @@ enum TDA7439_input : uint8_t
 // диапазон регулировки тембра
 enum TDA7439_bands : uint8_t
 {
-	BASS = TDA7439_BASS,			// низкие частоты
-	MIDDLE = TDA7439_MIDDLE,	// средние частоты
+	BASS = TDA7439_BASS,	  // низкие частоты
+	MIDDLE = TDA7439_MIDDLE,  // средние частоты
 	TREBBLE = TDA7439_TREBBLE // высокие частоты
 };
 
 #define TDA7439_MUTE 0x38
 #define TDA7439_SP_MUTE 0x78
 
-#include <Arduino.h>
 class shTDA7439
 {
 public:
@@ -108,15 +119,16 @@ public:
 	 *
 	 * @param spk_att 0..79 (db)
 	 */
-	void setSpeakerAtt(const int8_t spk_att);
+	void setSpeakerAtt(const uint8_t spk_att);
 
 private:
 	TwoWire *_wire = nullptr;
 	uint8_t _spk_att = 0; // уровень приглушения громкости на выходе; 0..79 (db)
-	int8_t _balance = 0;	// баланс; -79..79 (db)
+	int8_t _balance = 0;  // баланс; -79..79 (db)
+	uint8_t _data[3];	  // буфер данных для записи в регистры
 
 	void writeWire(const uint8_t reg, const uint8_t size);
 	void checkEqData(int8_t &val);
 };
 
-#endif // TDA7439_H
+#endif // SHTDA7439_H

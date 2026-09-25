@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For shTaskManager
+# Syntax Coloring Map For shTDA7439.h
 #######################################
 
 #######################################
@@ -36,3 +36,20 @@ TDA7439_MIDDLE	LITERAL1
 TDA7439_TREBBLE	LITERAL1
 TDA7439_RATT	LITERAL1
 TDA7439_LATT	LITERAL1
+TDA7439_MUTE	LITERAL1
+TDA7439_SP_MUTE	LITERAL1
+TDA7439_address	LITERAL1
+INPUT_1	LITERAL1
+INPUT_2	LITERAL1
+INPUT_3	LITERAL1
+INPUT_4	LITERAL1
+BASS	LITERAL1
+MIDDLE	LITERAL1
+TREBBLE	LITERAL1
+
+#######################################
+# License
+#######################################
+
+# SPDX-FileCopyrightText: Copyright (c) 2025 Vladimir Shatalov <valesh-soft@yandex.ru>
+# SPDX-License-Identifier: MIT

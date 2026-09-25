@@ -7,7 +7,11 @@
  * @version 1.0
  * @date 03.04.2025
  * 
- * @copyright Copyright (c) 2025
+ * @copyright Copyright (c) 2025 Vladimir Shatalov
+ * @license MIT
+ *
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Vladimir Shatalov <valesh-soft@yandex.ru>
+ * SPDX-License-Identifier: MIT
  * 
  */
 

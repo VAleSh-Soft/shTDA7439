@@ -1,20 +1,33 @@
+/**
+ * shTDA7439.cpp - библиотека для работы с аудиопроцессором TDA7439
+ *
+ * SPDX-FileCopyrightText: Copyright (c) 2025 Vladimir Shatalov <valesh-soft@yandex.ru>
+ * SPDX-License-Identifier: MIT
+ *
+ * Библиотека разработана и поддерживается Владимиром Шаталовым (VAleSh-Soft).
+ *
+ * Полный текст лицензии MIT - в файле LICENSE.
+ */
+
 #include <Arduino.h>
 #include <Wire.h>
 #include "shTDA7439.h"
-
-static uint8_t wire_data[3];
 
 shTDA7439::shTDA7439() {}
 
 void shTDA7439::begin(TwoWire *wire)
 {
   _wire = wire;
+  if (!_wire)
+  {
+    return; // шина не задана, запись невозможна
+  }
   _wire->begin();
 }
 
 void shTDA7439::setInput(const TDA7439_input input)
 {
-  wire_data[0] = (uint8_t)input;
+  _data[0] = (uint8_t)input;
   writeWire(TDA7439_INPUT_SEL, 1);
 }
 
@@ -25,21 +38,21 @@ void shTDA7439::setInputGain(uint8_t gain)
     gain = 15;
   }
 
-  wire_data[0] = gain;
+  _data[0] = gain;
   writeWire(TDA7439_INPUT_GAIN, 1);
 }
 
 void shTDA7439::setVolume(uint8_t volume)
 {
   volume = (volume) ? ((volume <= 47) ? 47 - volume : 0) : TDA7439_MUTE;
-  wire_data[0] = volume;
+  _data[0] = volume;
   writeWire(TDA7439_VOLUME, 1);
 }
 
 void shTDA7439::setEqRange(int8_t val, const TDA7439_bands range)
 {
   checkEqData(val);
-  wire_data[0] = val;
+  _data[0] = val;
   writeWire((uint8_t)range, 1);
 }
 
@@ -49,16 +62,16 @@ void shTDA7439::setTimbre(int8_t bass, int8_t middle, int8_t trebble)
   checkEqData(middle);
   checkEqData(trebble);
 
-  wire_data[0] = bass;
-  wire_data[1] = middle;
-  wire_data[2] = trebble;
+  _data[0] = bass;
+  _data[1] = middle;
+  _data[2] = trebble;
 
   writeWire(TDA7439_BASS, 3);
 }
 
 void shTDA7439::mute()
 {
-  wire_data[0] = TDA7439_MUTE;
+  _data[0] = TDA7439_MUTE;
   writeWire(TDA7439_VOLUME, 1);
 }
 
@@ -78,13 +91,13 @@ void shTDA7439::setBalance(const int8_t balance)
     left = TDA7439_SP_MUTE;
   }
 
-  wire_data[0] = right;
-  wire_data[1] = left;
+  _data[0] = right;
+  _data[1] = left;
 
   writeWire(TDA7439_RATT, 2);
 }
 
-void shTDA7439::setSpeakerAtt(const int8_t spk_att)
+void shTDA7439::setSpeakerAtt(const uint8_t spk_att)
 {
   _spk_att = (spk_att >= 79) ? TDA7439_SP_MUTE : spk_att;
   setBalance(_balance);
@@ -92,11 +105,18 @@ void shTDA7439::setSpeakerAtt(const int8_t spk_att)
 
 void shTDA7439::writeWire(const uint8_t reg, const uint8_t size)
 {
+  if (!_wire)
+  {
+    return; // begin() не вызван либо передан пустой указатель
+  }
+
+  uint8_t count = (size > sizeof(_data)) ? sizeof(_data) : size;
+
   _wire->beginTransmission(TDA7439_address);
   _wire->write(reg + 0x10);
-  for (uint8_t i = 0; i < size; i++)
+  for (uint8_t i = 0; i < count; i++)
   {
-    _wire->write(wire_data[i]);
+    _wire->write(_data[i]);
   }
   _wire->endTransmission();
 }
