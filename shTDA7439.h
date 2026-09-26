@@ -23,7 +23,7 @@
 #define TDA7439_VOLUME 0x02
 #define TDA7439_BASS 0x03
 #define TDA7439_MIDDLE 0x04
-#define TDA7439_TREBBLE 0x05
+#define TDA7439_TREBLE 0x05
 
 #define TDA7439_RATT 0x06
 #define TDA7439_LATT 0x07
@@ -40,9 +40,11 @@ enum TDA7439_input : uint8_t
 // диапазон регулировки тембра
 enum TDA7439_bands : uint8_t
 {
-	BASS = TDA7439_BASS,	  // низкие частоты
-	MIDDLE = TDA7439_MIDDLE,  // средние частоты
-	TREBBLE = TDA7439_TREBBLE // высокие частоты
+	BASS = TDA7439_BASS,	 // низкие частоты
+	MIDDLE = TDA7439_MIDDLE, // средние частоты
+	TREBLE = TDA7439_TREBLE, // высокие частоты
+	TREBBLE = TDA7439_TREBLE // оставлено для совместимости из-за изначальной опечатки
+	                         // в дальнейшем будет удалено
 };
 
 #define TDA7439_MUTE 0x38
@@ -88,7 +90,7 @@ public:
 	 * @brief установка полосы эквалайзера
 	 *
 	 * @param val -7..7
-	 * @param range диапазон - BASS, MIDDLE, TREBBLE
+	 * @param range диапазон - BASS, MIDDLE, TREBLE
 	 */
 	void setEqRange(int8_t val, const TDA7439_bands range);
 
@@ -97,9 +99,9 @@ public:
 	 *
 	 * @param bass низкие частоты; -7..7
 	 * @param middle средние частоты; -7..7
-	 * @param trebble высокие частоты; -7..7
+	 * @param treble высокие частоты; -7..7
 	 */
-	void setTimbre(int8_t bass, int8_t middle, int8_t trebble);
+	void setTimbre(int8_t bass, int8_t middle, int8_t treble);
 
 	/**
 	 * @brief отключение звука

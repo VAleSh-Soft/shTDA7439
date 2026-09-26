@@ -56,15 +56,15 @@ void shTDA7439::setEqRange(int8_t val, const TDA7439_bands range)
   writeWire((uint8_t)range, 1);
 }
 
-void shTDA7439::setTimbre(int8_t bass, int8_t middle, int8_t trebble)
+void shTDA7439::setTimbre(int8_t bass, int8_t middle, int8_t treble)
 {
   checkEqData(bass);
   checkEqData(middle);
-  checkEqData(trebble);
+  checkEqData(treble);
 
   _data[0] = bass;
   _data[1] = middle;
-  _data[2] = trebble;
+  _data[2] = treble;
 
   writeWire(TDA7439_BASS, 3);
 }
